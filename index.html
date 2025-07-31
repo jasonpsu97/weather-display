@@ -58,6 +58,7 @@
   <link rel="preload" href="images/rain.jpg" as="image">
   <link rel="preload" href="images/fog.jpeg" as="image">
   <link rel="preload" href="images/snow.jpg" as="image">
+  <link rel="preload" href="images/thunderstorm.jpg" as="image">
   <link rel="preload" href="images/default.jpeg" as="image">
 </head>
 <body>
@@ -113,10 +114,14 @@
           break;
         case 'mist':
         case 'fog':
+        case 'haze':
           backgroundImage = 'images/fog.jpeg';
           break;
         case 'snow':
           backgroundImage = 'images/snow.jpg';
+          break;
+        case 'thunderstorms':
+          backgroundImage = 'images/thunderstorm.jpg';
           break;
         default:
           backgroundImage = 'images/default.jpeg';
