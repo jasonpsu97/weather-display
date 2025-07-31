@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Update</title>
+  <style>
+    body {
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #weather-app {
+      width: 288px;
+      height: 144px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      background-color: #444;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .text-box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    #conditions {
+      font-size: 24px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    #temperature {
+      font-size: 36px;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="weather-app">
+    <div class="text-box">
+      <div id="conditions">Loading...</div>
+      <div id="temperature"></div>
+    </div>
+  </div>
+
+  <script>
+    const apiKey = '042dc3c24589cfd8d16c98982c121e25';
+    const lat = 40.340685;
+    const lon = -79.799910;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+
+    async function fetchWeatherData() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.cod !== 200) {
+          document.getElementById('conditions').innerText = "Error: " + data.message;
+          return;
+        }
+
+        const conditions = data.weather[0].description.toUpperCase();
+        const temperature = Math.round(data.main.temp);
+
+        document.getElementById('conditions').innerText = conditions;
+        document.getElementById('temperature').innerText = `${temperature}°F`;
+
+        setBackground(data.weather[0].main.toLowerCase());
+      } catch (error) {
+        document.getElementById('conditions').innerText = "Fetch failed.";
+        console.error('Error fetching weather data:', error);
+      }
+    }
+
+    function setBackground(condition) {
+      const weatherApp = document.getElementById('weather-app');
+      let backgroundImage;
+
+      switch (condition) {
+        case 'clear':
+          backgroundImage = 'images/clear.jpg';
+          break;
+        case 'clouds':
+          backgroundImage = 'images/clouds.jpg';
+          break;
+        case 'rain':
+          backgroundImage = 'images/rain.jpg';
+          break;
+        case 'mist':
+        case 'fog':
+          backgroundImage = 'images/fog.jpg';
+          break;
+        case 'snow':
+          backgroundImage = 'images/snow.jpg';
+          break;
+        default:
+          backgroundImage = 'images/default.jpg';
+      }
+
+      weatherApp.style.backgroundImage = `url('${backgroundImage}')`;
+    }
+
+    fetchWeatherData();
+  </script>
+</body>
+</html>
