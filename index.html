@@ -34,20 +34,21 @@
         backgroundImage = 'images/clear.jpg';
         break;
       case 'clouds':
-        backgroundImage = 'images/clouds.jpg';
+        backgroundImage = 'images/clouds.png';
         break;
       case 'rain':
         backgroundImage = 'images/rain.jpg';
         break;
       case 'mist':
       case 'fog':
-        backgroundImage = 'images/fog.jpg';
+      case 'haze':
+        backgroundImage = 'images/fog.jpeg';
         break;
       case 'snow':
         backgroundImage = 'images/snow.jpg';
         break;
       default:
-        backgroundImage = 'images/default.jpg';
+        backgroundImage = 'images/default.jpeg';
     }
 
     weatherApp.style.backgroundImage = `url('${backgroundImage}')`;
