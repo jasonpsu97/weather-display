@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,66 +60,65 @@
     </div>
   </div>
 
-<script>
-  const apiKey = '042dc3c24589cfd8d16c98982c121e25';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=40.340685&lon=-79.799910&appid=${apiKey}&units=imperial`;
+  <script>
+    const apiKey = '042dc3c24589cfd8d16c98982c121e25';
+    const lat = 40.340685;
+    const lon = -79.799910;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
 
-  async function fetchWeatherData() {
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
+    async function fetchWeatherData() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-      if (data.cod !== 200) {
-        document.getElementById('conditions').innerText = "Error: " + data.message;
-        return;
+        if (data.cod !== 200) {
+          document.getElementById('conditions').innerText = "Error: " + data.message;
+          return;
+        }
+
+        const conditions = data.weather[0].description.toUpperCase();
+        const temperature = Math.round(data.main.temp);
+
+        document.getElementById('conditions').innerText = conditions;
+        document.getElementById('temperature').innerText = `${temperature}°F`;
+
+        setBackground(data.weather[0].main.toLowerCase());
+      } catch (error) {
+        document.getElementById('conditions').innerText = "Fetch failed.";
+        console.error('Error fetching weather data:', error);
+      }
+    }
+
+    function setBackground(condition) {
+      const weatherApp = document.getElementById('weather-app');
+      let backgroundImage;
+
+      switch (condition) {
+        case 'clear':
+          backgroundImage = 'images/clear.jpg';
+          break;
+        case 'clouds':
+          backgroundImage = 'images/clouds.png';
+          break;
+        case 'rain':
+          backgroundImage = 'images/rain.jpg';
+          break;
+        case 'mist':
+        case 'fog':
+          backgroundImage = 'images/fog.jpeg';
+          break;
+        case 'snow':
+          backgroundImage = 'images/snow.jpg';
+          break;
+        default:
+          backgroundImage = 'images/default.jpeg';
       }
 
-      const conditions = data.weather[0].description.toUpperCase();
-      const temperature = Math.round(data.main.temp);
-
-      document.getElementById('conditions').innerText = conditions;
-      document.getElementById('temperature').innerText = `${temperature}°F`;
-
-      setBackground(data.weather[0].main.toLowerCase());
-    } catch (error) {
-      document.getElementById('conditions').innerText = "Fetch failed.";
-      console.error('Error fetching weather data:', error);
-    }
-  }
-
-  function setBackground(condition) {
-    const weatherApp = document.getElementById('weather-app');
-    let backgroundImage;
-
-    switch (condition) {
-      case 'clear':
-        backgroundImage = 'images/clear.jpg';
-        break;
-      case 'clouds':
-        backgroundImage = 'images/clouds.png';
-        break;
-      case 'rain':
-        backgroundImage = 'images/rain.jpg';
-        break;
-      case 'mist':
-      case 'fog':
-      case 'haze':
-        backgroundImage = 'images/fog.jpeg';
-        break;
-      case 'snow':
-        backgroundImage = 'images/snow.jpg';
-        break;
-      default:
-        backgroundImage = 'images/default.jpeg';
+      weatherApp.style.backgroundImage = `url('${backgroundImage}')`;
     }
 
-    weatherApp.style.backgroundImage = `url('${backgroundImage}')`;
-  }
-
-  // Initial fetch
-  fetchWeatherData();
-
-  // Auto-refresh every 5 minutes (300,000 ms)
+    fetchWeatherData();
+      // Auto-refresh every 5 minutes (300,000 ms)
   setInterval(fetchWeatherData, 300000);
   </script>
 </body>
