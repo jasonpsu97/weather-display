@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +30,7 @@
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
       background-size: cover;
       background-position: center;
+      transition: background-image 1s ease-in-out;
     }
 
     .text-box {
@@ -51,6 +51,14 @@
       font-weight: bold;
     }
   </style>
+
+  <!-- Preload images -->
+  <link rel="preload" href="images/clear.jpg" as="image">
+  <link rel="preload" href="images/clouds.png" as="image">
+  <link rel="preload" href="images/rain.jpg" as="image">
+  <link rel="preload" href="images/fog.jpeg" as="image">
+  <link rel="preload" href="images/snow.jpg" as="image">
+  <link rel="preload" href="images/default.jpeg" as="image">
 </head>
 <body>
   <div id="weather-app">
@@ -117,9 +125,9 @@
       weatherApp.style.backgroundImage = `url('${backgroundImage}')`;
     }
 
+    // Initial fetch + auto-refresh every 5 minutes (300,000 ms)
     fetchWeatherData();
-      // Auto-refresh every 5 minutes (300,000 ms)
-  setInterval(fetchWeatherData, 300000);
+    setInterval(fetchWeatherData, 300000);
   </script>
 </body>
 </html>
