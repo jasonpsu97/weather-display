@@ -52,14 +52,14 @@
     }
   </style>
 
-  <!-- Preload images -->
-  <link rel="preload" href="images/clear.jpg" as="image">
-  <link rel="preload" href="images/clouds.png" as="image">
-  <link rel="preload" href="images/rain.jpg" as="image">
-  <link rel="preload" href="images/fog.jpeg" as="image">
-  <link rel="preload" href="images/snow.jpg" as="image">
-  <link rel="preload" href="images/thunderstorm.jpg" as="image">
-  <link rel="preload" href="images/default.jpeg" as="image">
+  <!-- Preload optimized .webp images -->
+  <link rel="preload" href="images/clear.webp" as="image">
+  <link rel="preload" href="images/clouds.webp" as="image">
+  <link rel="preload" href="images/rain.webp" as="image">
+  <link rel="preload" href="images/fog.webp" as="image">
+  <link rel="preload" href="images/snow.webp" as="image">
+  <link rel="preload" href="images/thunderstorm.webp" as="image">
+  <link rel="preload" href="images/default.webp" as="image">
 </head>
 <body>
   <div id="weather-app">
@@ -104,27 +104,28 @@
 
       switch (condition) {
         case 'clear':
-          backgroundImage = 'images/clear.jpg';
+          backgroundImage = 'images/clear.webp';
           break;
         case 'clouds':
-          backgroundImage = 'images/clouds.png';
+          backgroundImage = 'images/clouds.webp';
           break;
         case 'rain':
-          backgroundImage = 'images/rain.jpg';
+          backgroundImage = 'images/rain.webp';
           break;
         case 'mist':
         case 'fog':
         case 'haze':
-          backgroundImage = 'images/fog.jpeg';
+          backgroundImage = 'images/fog.webp';
           break;
         case 'snow':
-          backgroundImage = 'images/snow.jpg';
+          backgroundImage = 'images/snow.webp';
           break;
+        case 'thunderstorm':
         case 'thunderstorms':
-          backgroundImage = 'images/thunderstorm.jpg';
+          backgroundImage = 'images/thunderstorm.webp';
           break;
         default:
-          backgroundImage = 'images/default.jpeg';
+          backgroundImage = 'images/default.webp';
       }
 
       weatherApp.style.backgroundImage = `url('${backgroundImage}')`;
